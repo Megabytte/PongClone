@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.opengl.Texture;
 // 138 x 232 All Image Dimensions
@@ -86,25 +87,25 @@ public class Numbers extends GameObject
 	{
 		switch(IMAGE)
 		{
-			case 0: t0.bind();
+			case 0: TextureImpl.unbind(); t0.bind();
 				break;
-			case 1: t1.bind();
+			case 1: TextureImpl.unbind(); t1.bind();
 				break;
-			case 2: t2.bind();
+			case 2: TextureImpl.unbind(); t2.bind();
 				break;
-			case 3: t3.bind();
+			case 3: TextureImpl.unbind(); t3.bind();
 				break;
-			case 4: t4.bind();
+			case 4: TextureImpl.unbind(); t4.bind();
 				break;
-			case 5: t5.bind();
+			case 5: TextureImpl.unbind(); t5.bind();
 				break;
-			case 6: t6.bind();
+			case 6: TextureImpl.unbind(); t6.bind();
 				break;
-			case 7: t7.bind();
+			case 7: TextureImpl.unbind(); t7.bind();
 				break;
-			case 8: t8.bind();
+			case 8: TextureImpl.unbind(); t8.bind();
 				break;
-			case 9: t9.bind();
+			case 9: TextureImpl.unbind(); t9.bind();
 				break;
 		}
 	}
@@ -112,6 +113,8 @@ public class Numbers extends GameObject
 	
 	public void draw()
 	{	
+		glEnable(GL_TEXTURE_2D);
+		
 		glBegin(GL_QUADS);
 			glTexCoord2f(0, 0);
 			glVertex2i(TLX, TLY);

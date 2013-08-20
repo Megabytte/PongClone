@@ -2,6 +2,7 @@ package me.Megabytte.Game;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.*;
 import org.lwjgl.*;
@@ -47,6 +48,11 @@ public class PongGame {
 	
 	public void update()
 	{
+		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
+		{
+			running = false;
+		}
+		
 		p1.updatePaddles();
 		p2.updatePaddles();
 		p1.sendGame(this);
@@ -60,7 +66,7 @@ public class PongGame {
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 		
-	//	score.draw();
+		score.draw();
 		w1.Draw();
 		w2.Draw();
 		b1.Draw();
@@ -74,16 +80,17 @@ public class PongGame {
 		{
 			Display.setDisplayMode(new DisplayMode(screenw, screenh));
 			Display.setTitle("Pong Game");
-			Display.create();
 			Display.setVSyncEnabled(true);
 			Display.setResizable(false);
+			Display.create();
+			
+			
 		} catch (LWJGLException e) { e.printStackTrace();}
 				
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(0, screenw, screenh, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
-		glEnable(GL_TEXTURE_2D);
 	}
 	
 	public void initGame()

@@ -8,7 +8,7 @@ public class Score extends GameObject
 	{
 		// 106 was 212 and 152 was 304
 		
-		numbers = new Numbers(0, 0, 0, 212, 304);
+		numbers = new Numbers(0, 20, 0, 64, 64);
 		numbers.identifyImage();
 	}
 	
