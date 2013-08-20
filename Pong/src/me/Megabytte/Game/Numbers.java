@@ -16,7 +16,7 @@ public class Numbers extends GameObject
 	public int X, Y, IMAGE;
 	public Texture t1, t2, t3, t4, t5, t6, t7, t8, t9, t0;
 	
-	public Numbers(int x, int y, int image, int DimX, int DimY)
+	public Numbers(int x, int y, int image, int DimWidth, int DimHeight)
 	{
 		X = x;
 		Y = y;
@@ -24,12 +24,12 @@ public class Numbers extends GameObject
 		
 		TLX = x;
 		TLY = y;
-		TRX = x + DimX;
+		TRX = x + DimWidth;
 		TRY = y;
-		BRX = x + DimX;
-		BRY = y + DimY;
+		BRX = x + DimWidth;
+		BRY = y + DimHeight;
 		BLX = x;
-		BLY = y + DimY;
+		BLY = y + DimHeight;
 		initImages();
 	}
 	
@@ -55,6 +55,30 @@ public class Numbers extends GameObject
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		
+		switch(key)
+		{
+			case "0": t0 = texture;
+				break;
+			case "1": t1 = texture;
+				break;
+			case "2": t2 = texture;
+				break;
+			case "3": t3 = texture;
+				break;
+			case "4": t4 = texture;
+				break;
+			case "5": t5 = texture;
+				break;
+			case "6": t6 = texture;
+				break;
+			case "7": t7 = texture;
+				break;
+			case "8": t8 = texture;
+				break;
+			case "9": t9 = texture;
+				break;
 		}
 	}
 	
@@ -87,13 +111,19 @@ public class Numbers extends GameObject
 	
 	
 	public void draw()
-	{		
+	{	
 		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);
 			glVertex2i(TLX, TLY);
+			glTexCoord2f(1, 0);
 			glVertex2i(TRX, TRY);
+			glTexCoord2f(1, 1);
 			glVertex2i(BRX, BRY);
+			glTexCoord2f(0, 1);
 			glVertex2i(BLX, BLY);
 		glEnd();
+		
+		glDisable(GL_TEXTURE_2D);
 	}
 	
 	public void update()

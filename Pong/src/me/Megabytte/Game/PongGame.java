@@ -13,6 +13,7 @@ public class PongGame {
 	private static long lastFrame;
 	public Paddle p1, p2;
 	public Ball b1;
+	Score score;
 	public Wall w1, w2;
 	public SoundController sc;
 	public boolean running = true;
@@ -59,6 +60,7 @@ public class PongGame {
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 		
+	//	score.draw();
 		w1.Draw();
 		w2.Draw();
 		b1.Draw();
@@ -88,6 +90,7 @@ public class PongGame {
 	{
 		lastFrame = getTime();
 		sc = new SoundController();
+		score = new Score();
 		
 		w1 = new Wall(0, 0, ScreenW, 0, 0, 10, ScreenW, 10);
 		w2 = new Wall(0, ScreenH - 10, ScreenW, ScreenH - 10, 0, ScreenH, ScreenW, ScreenH);

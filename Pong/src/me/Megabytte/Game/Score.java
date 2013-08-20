@@ -6,7 +6,9 @@ public class Score extends GameObject
 	
 	public Score() 
 	{
-		numbers = new Numbers(0, 0, 0, 212, 302);
+		// 106 was 212 and 152 was 304
+		
+		numbers = new Numbers(0, 0, 0, 212, 304);
 		numbers.identifyImage();
 	}
 	
