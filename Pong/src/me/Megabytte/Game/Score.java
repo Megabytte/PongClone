@@ -16,4 +16,10 @@ public class Score extends GameObject
 	{
 		numbers.draw();
 	}
+	
+	public void update()
+	{
+		numbers.update();
+	}
+	
 }

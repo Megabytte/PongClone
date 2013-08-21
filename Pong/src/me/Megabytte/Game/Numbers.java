@@ -14,14 +14,14 @@ import org.newdawn.slick.opengl.Texture;
 
 public class Numbers extends GameObject
 {
-	public int X, Y, IMAGE;
+	public int X, Y, Image;
 	public Texture t1, t2, t3, t4, t5, t6, t7, t8, t9, t0;
 	
 	public Numbers(int x, int y, int image, int DimWidth, int DimHeight)
 	{
 		X = x;
 		Y = y;
-		IMAGE = image;
+		Image = image;
 		
 		TLX = x;
 		TLY = y;
@@ -51,13 +51,17 @@ public class Numbers extends GameObject
 	public void loadImage(String key, Texture texture)
 	{
 		try {
-			texture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/images/numbers/" + key + ".png")));
+			texture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/Images/numbers/" + key + ".png")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		setImage(key, texture);
+	}
+	
+	public void setImage(String key, Texture texture)
+	{
 		switch(key)
 		{
 			case "0": t0 = texture;
@@ -85,7 +89,7 @@ public class Numbers extends GameObject
 	
 	public void identifyImage()
 	{
-		switch(IMAGE)
+		switch(Image)
 		{
 			case 0: TextureImpl.unbind(); t0.bind();
 				break;
@@ -132,6 +136,12 @@ public class Numbers extends GameObject
 	public void update()
 	{
 		
+	}
+	
+	public void changeImage(int image)
+	{
+		Image = image;
+		identifyImage();
 	}
 	
 	

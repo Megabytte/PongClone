@@ -35,6 +35,7 @@ public class PongGame {
 		{
 			delta = (long) getDelta();
 			draw();
+			input();
 			update();
 			
 			Display.update();
@@ -46,13 +47,56 @@ public class PongGame {
 		System.exit(0);
 	}	
 	
-	public void update()
+	public void input()
 	{
 		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
 		{
 			running = false;
 		}
-		
+		if(Keyboard.isKeyDown(Keyboard.KEY_0))
+		{
+			score.numbers.changeImage(0);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_1))
+		{
+			score.numbers.changeImage(1);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_2))
+		{
+			score.numbers.changeImage(2);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_3))
+		{
+			score.numbers.changeImage(3);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_4))
+		{
+			score.numbers.changeImage(4);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_5))
+		{
+			score.numbers.changeImage(5);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_6))
+		{
+			score.numbers.changeImage(6);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_7))
+		{
+			score.numbers.changeImage(7);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_8))
+		{
+			score.numbers.changeImage(8);
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_9))
+		{
+			score.numbers.changeImage(9);
+		}
+	}
+	
+	public void update()
+	{
 		p1.updatePaddles();
 		p2.updatePaddles();
 		p1.sendGame(this);
