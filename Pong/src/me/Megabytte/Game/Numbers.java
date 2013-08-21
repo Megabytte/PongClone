@@ -14,14 +14,19 @@ import org.newdawn.slick.opengl.Texture;
 
 public class Numbers extends GameObject
 {
-	public int X, Y, Image;
+	public int X, Y, Image = 0;
 	public Texture t1, t2, t3, t4, t5, t6, t7, t8, t9, t0;
+	public LoadTexture tLoader;
+	public int Board = 0;
 	
-	public Numbers(int x, int y, int image, int DimWidth, int DimHeight)
+	public Numbers(int x, int y, int DimWidth, int DimHeight, int board)
 	{
+		tLoader = new LoadTexture();
+		
+		Board = board;
+		
 		X = x;
 		Y = y;
-		Image = image;
 		
 		TLX = x;
 		TLY = y;
@@ -36,82 +41,59 @@ public class Numbers extends GameObject
 	
 	public void initImages()
 	{
-		loadImage("0", t0);
-		loadImage("1", t1);
-		loadImage("2", t2);
-		loadImage("3", t3);
-		loadImage("4", t4);
-		loadImage("5", t5);
-		loadImage("6", t6);
-		loadImage("7", t7);
-		loadImage("8", t8);
-		loadImage("9", t9);
+		t0 = tLoader.loadImage("numbers/0", t0);
+		t1 = tLoader.loadImage("numbers/1", t1);
+		t2 = tLoader.loadImage("numbers/2", t2);
+		t3 = tLoader.loadImage("numbers/3", t3);
+		t4 = tLoader.loadImage("numbers/4", t4);
+		t5 = tLoader.loadImage("numbers/5", t5);
+		t6 = tLoader.loadImage("numbers/6", t6);
+		t7 = tLoader.loadImage("numbers/7", t7);
+		t8 = tLoader.loadImage("numbers/8", t8);
+		t9 = tLoader.loadImage("numbers/9", t9);
+		
+		t0.getTextureID();
+		//School interupts stuff gtg
+		//Look for fix for Image Problem.
+		
 	}
 	
-	public void loadImage(String key, Texture texture)
+	public void debug()
 	{
-		try {
-			texture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/Images/numbers/" + key + ".png")));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		setImage(key, texture);
+		if(Board == 0)
+			System.err.println("Board 0: " + Image );
+		
+		if(Board == 1)
+			System.err.println("Board 1: " + Image );
 	}
 	
-	public void setImage(String key, Texture texture)
-	{
-		switch(key)
-		{
-			case "0": t0 = texture;
-				break;
-			case "1": t1 = texture;
-				break;
-			case "2": t2 = texture;
-				break;
-			case "3": t3 = texture;
-				break;
-			case "4": t4 = texture;
-				break;
-			case "5": t5 = texture;
-				break;
-			case "6": t6 = texture;
-				break;
-			case "7": t7 = texture;
-				break;
-			case "8": t8 = texture;
-				break;
-			case "9": t9 = texture;
-				break;
-		}
-	}
 	
 	public void identifyImage()
 	{
 		switch(Image)
 		{
-			case 0: TextureImpl.unbind(); t0.bind();
+			case 0: t0.bind();
 				break;
-			case 1: TextureImpl.unbind(); t1.bind();
+			case 1: t1.bind();
 				break;
-			case 2: TextureImpl.unbind(); t2.bind();
+			case 2: t2.bind();
 				break;
-			case 3: TextureImpl.unbind(); t3.bind();
+			case 3: t3.bind();
 				break;
-			case 4: TextureImpl.unbind(); t4.bind();
+			case 4: t4.bind();
 				break;
-			case 5: TextureImpl.unbind(); t5.bind();
+			case 5: t5.bind();
 				break;
-			case 6: TextureImpl.unbind(); t6.bind();
+			case 6: t6.bind();
 				break;
-			case 7: TextureImpl.unbind(); t7.bind();
+			case 7: t7.bind();
 				break;
-			case 8: TextureImpl.unbind(); t8.bind();
+			case 8: t8.bind();
 				break;
-			case 9: TextureImpl.unbind(); t9.bind();
+			case 9: t9.bind();
 				break;
 		}
+		
 	}
 	
 	
@@ -131,6 +113,7 @@ public class Numbers extends GameObject
 		glEnd();
 		
 		glDisable(GL_TEXTURE_2D);
+		
 	}
 	
 	public void update()

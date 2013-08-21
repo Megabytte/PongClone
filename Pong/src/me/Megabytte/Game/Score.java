@@ -3,23 +3,30 @@ package me.Megabytte.Game;
 public class Score extends GameObject
 {
 	public Numbers numbers;
+	public Numbers numbers2;
 	
 	public Score() 
-	{
-		// 106 was 212 and 152 was 304
-		
-		numbers = new Numbers(0, 20, 0, 64, 64);
+	{	
+		numbers = new Numbers(0, 20, 64, 64, 0);
 		numbers.identifyImage();
+		
+		numbers2 = new Numbers(576, 20, 64, 64, 1);
+		numbers2.identifyImage();
 	}
 	
 	public void draw()
 	{
 		numbers.draw();
+		numbers2.draw();
+		
+		numbers.debug();
+		numbers2.debug();
 	}
 	
 	public void update()
 	{
 		numbers.update();
+		numbers2.update();
 	}
 	
 }
