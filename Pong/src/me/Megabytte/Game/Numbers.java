@@ -12,11 +12,9 @@ public class Numbers extends GameObject
 	public LoadTexture tLoader;
 	public int Board = 0;
 	
-	public Numbers(int x, int y, int DimWidth, int DimHeight, int board)
+	public Numbers(int x, int y, int DimWidth, int DimHeight)
 	{
 		tLoader = new LoadTexture();
-		
-		Board = board;
 		
 		X = x;
 		Y = y;
@@ -85,6 +83,8 @@ public class Numbers extends GameObject
 		glLoadIdentity();
 		
 		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_BLEND);
+    	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 		glBegin(GL_QUADS);
 			glTexCoord2f(0, 0);
@@ -98,7 +98,7 @@ public class Numbers extends GameObject
 		glEnd();
 		
 		glDisable(GL_TEXTURE_2D);
-		
+		glDisable(GL_BLEND);
 		glLoadIdentity();
 		
 	}

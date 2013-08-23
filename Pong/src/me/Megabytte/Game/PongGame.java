@@ -40,11 +40,12 @@ public class PongGame {
 			
 			Display.update();
 			Display.sync(60);
-		}
+		}	
 		
 		Display.destroy();
 		AL.destroy();
 		System.exit(0);
+		
 	}	
 	
 	public void input()
@@ -52,46 +53,6 @@ public class PongGame {
 		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
 		{
 			running = false;
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_0))
-		{
-			score.numbers.changeImage(0);
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_1))
-		{
-			score.numbers.changeImage(1);
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_2))
-		{
-			score.numbers.changeImage(2);
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_3))
-		{
-			score.numbers.changeImage(3);
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_4))
-		{
-			score.numbers.changeImage(4);
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_5))
-		{
-			score.numbers.changeImage(5);
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_6))
-		{
-			score.numbers.changeImage(6);
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_7))
-		{
-			score.numbers.changeImage(7);
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_8))
-		{
-			score.numbers.changeImage(8);
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_9))
-		{
-			score.numbers.changeImage(9);
 		}
 	}
 	
@@ -148,6 +109,8 @@ public class PongGame {
 		p1 = new Paddle(50, 200, 55, 200, 50, 326, 55, 326, 0.5f, 1);
 		p2 = new Paddle(590, 200, 595, 200, 590, 326, 595, 326, 0.5f, 2);
 		b1 = new Ball(310, 230, 320, 230, 310, 240, 320, 240, 0.2f, 0.2f);
+		
+		sc.startup.playAsSoundEffect(1.0f, 1.0f, false);
 	}
 	
 	private static long getTime() 

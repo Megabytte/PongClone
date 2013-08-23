@@ -5,6 +5,8 @@ import static org.lwjgl.opengl.GL11.*;
 import java.util.Random;
 
 import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureImpl;
 
 public class Ball extends GameObject
 {
@@ -16,9 +18,13 @@ public class Ball extends GameObject
 	public boolean isAlive = true;
 	int lastHit = 0;
 	volatile boolean soundCoolDown;
+	public LoadTexture tLoader;
+	public Texture ball;
 	
 	public Ball(int tlX, int tlY, int trX, int trY, int blX, int blY, int brX, int brY, float dX, float dY) 
 	{
+		tLoader = new LoadTexture();
+		initImage();
 		TLX = tlX;
 		TLY = tlY;
 		TRX = trX;
@@ -32,6 +38,11 @@ public class Ball extends GameObject
 		
 		randomStart();
 		
+	}
+	
+	public void initImage()
+	{
+		ball = tLoader.loadImage("ball", ball);
 	}
 	
 	public void randomStart()
@@ -59,18 +70,28 @@ public class Ball extends GameObject
 	{
 		if(isAlive)
 		{	
-			glBegin(GL_QUADS);
-				glColor3d(1, 0, 0);
-				//Top Left (0,0)
-				glVertex2i(TLX, TLY);
-				//Top Right (1,0)
-				glVertex2i(TRX, TRY);
-				//Low Right (1,1)
+			ball.bind();
+			
+			glLoadIdentity();
+			
+			glEnable(GL_TEXTURE_2D);
+			glEnable(GL_BLEND);
+        	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			
+			glBegin(GL_QUADS);	
+				glTexCoord2f(0, 0);
+				glVertex2i(TLX, TLY);			
+				glTexCoord2f(1, 0);
+				glVertex2i(TRX, TRY);			
+				glTexCoord2f(1, 1);
 				glVertex2i(BRX, BRY);
-				//Low Left (0,1)
+				glTexCoord2f(0, 1);
 				glVertex2i(BLX, BLY);
-				glColor3d(1, 1, 1);
 			glEnd();
+			
+			glDisable(GL_TEXTURE_2D);
+			glDisable(GL_BLEND);
+			glLoadIdentity();
 		}
 	}
 	
@@ -91,19 +112,50 @@ public class Ball extends GameObject
 			BLY = 240;
 			BRX = 320;
 			BRY = 240;
-			isAlive = true;
-			DX = 0.2f;
-			DY = 0.2f;
+			DX = 0.0f;
+			DY = 0.0f;
 			randomStart();
 		}
+	}
+
+	public void respawn()
+	{
+		resetBall();
+		isAlive = true;
+		DX = 0.2f;
+		DY = 0.2f;
 	}
 	
 	public void updateBall()
 	{	
-		if(Keyboard.isKeyDown(Keyboard.KEY_R))
+		while(Keyboard.next())
 		{
-			isAlive = false;
-			resetBall();
+			if(Keyboard.getEventKey() == Keyboard.KEY_R && Keyboard.getEventKeyState())
+			{
+				isAlive = false;
+				respawn();
+				localG.sc.startup.playAsSoundEffect(1.0f, 1.0f, false);
+				localG.score.numbers.Image = 0;
+				localG.score.numbers2.Image = 0;
+				
+				localG.p1.BLX = 50;
+				localG.p1.BLY = 326;
+				localG.p1.BRX = 55;
+				localG.p1.BRY = 326;
+				localG.p1.TLX = 50;
+				localG.p1.TLY = 200;
+				localG.p1.TRX = 55;
+				localG.p1.TRY = 200;
+				
+				localG.p2.BLX = 590;
+				localG.p2.BLY = 326;
+				localG.p2.BRX = 595;
+				localG.p2.BRY = 326;
+				localG.p2.TLX = 590;
+				localG.p2.TLY = 200;
+				localG.p2.TRX = 595;
+				localG.p2.TRY = 200;
+			}
 		}
 		//Reset Stuff
 		
@@ -112,7 +164,7 @@ public class Ball extends GameObject
 		if(isAlive == true)
 		{
 		//Paddle 1
-		if(TLX <= localG.p1.TRX && TLY >= localG.p1.TRY && BLX <= localG.p1.BRX && BLY <= localG.p1.BRY)
+		if((TLX <= localG.p1.TRX && TLY >= localG.p1.TRY && BLX <= localG.p1.BRX && BLY <= localG.p1.BRY) && (TRX >= localG.p1.TLX && TRY >= localG.p1.TRY && BRX >= localG.p1.BLX && BRY <= localG.p1.BRY))
 		{
 			lastHit = 1;
 			localG.sc.hit.playAsSoundEffect(1.0f, 1.0f, false);
@@ -159,7 +211,7 @@ public class Ball extends GameObject
 			}
 		}
 		//Paddle 2
-		if(TRX >= localG.p2.TLX && TRY >= localG.p2.TLY && BRX >= localG.p1.BLX && BRY <= localG.p2.BLY)
+		if((TRX >= localG.p2.TLX && TRY >= localG.p2.TLY && BRX >= localG.p1.BLX && BRY <= localG.p2.BLY) && (TLX <= localG.p2.TRX && TLY >= localG.p2.TRY && BLX <= localG.p2.BRX && BLY <= localG.p2.BRY))
 		{
 			if(DX <= 2 && DY <= 2)
 			{
@@ -236,11 +288,33 @@ public class Ball extends GameObject
 		{
 			isAlive = false;
 			localG.score.numbers2.Image++;
+			localG.sc.point.playAsSoundEffect(1.0f, 1.0f, false);
+			
+			if(!(localG.score.numbers2.Image == 10))
+				respawn();
+			
+			if(localG.score.numbers2.Image >= 10)
+			{
+				localG.score.numbers2.Image = 0;
+				localG.score.numbers.Image = 0;
+				localG.sc.gameover.playAsSoundEffect(1.0f, 1.0f, false);
+			}
 		}
 		if(TRX >= localG.ScreenW)
 		{
 			isAlive = false;
 			localG.score.numbers.Image++;
+			localG.sc.point.playAsSoundEffect(1.0f, 1.0f, false);
+			
+			if(!(localG.score.numbers.Image == 10))
+				respawn();
+			
+			if(localG.score.numbers.Image >= 10)
+			{
+				localG.score.numbers.Image = 0;
+				localG.score.numbers2.Image = 0;
+				localG.sc.gameover.playAsSoundEffect(1.0f, 1.0f, false);
+			}
 		}
 	}
 	}

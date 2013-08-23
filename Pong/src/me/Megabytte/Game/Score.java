@@ -7,9 +7,9 @@ public class Score extends GameObject
 	
 	public Score() 
 	{	
-		numbers = new Numbers(0, 20, 64, 64, 0);
+		numbers = new Numbers(0, 10, 32, 32);
 		
-		numbers2 = new Numbers(576, 20, 64, 64, 1);
+		numbers2 = new Numbers(608, 10, 32, 32);
 	}
 	
 	public void draw()
