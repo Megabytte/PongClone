@@ -79,8 +79,8 @@ public class Ball extends GameObject
 		localG = game1;
 	}
 	
-	public void updateBall()
-	{	
+	public void resetBall()
+	{
 		if(isAlive == false)
 		{
 			TLX = 310;
@@ -96,7 +96,20 @@ public class Ball extends GameObject
 			DY = 0.2f;
 			randomStart();
 		}
-		else
+	}
+	
+	public void updateBall()
+	{	
+		if(Keyboard.isKeyDown(Keyboard.KEY_R))
+		{
+			isAlive = false;
+			resetBall();
+		}
+		//Reset Stuff
+		
+		resetBall();
+		
+		if(isAlive == true)
 		{
 		//Paddle 1
 		if(TLX <= localG.p1.TRX && TLY >= localG.p1.TRY && BLX <= localG.p1.BRX && BLY <= localG.p1.BRY)
@@ -222,10 +235,12 @@ public class Ball extends GameObject
 		if(TLX <= 0)
 		{
 			isAlive = false;
+			localG.score.numbers2.Image++;
 		}
 		if(TRX >= localG.ScreenW)
 		{
 			isAlive = false;
+			localG.score.numbers.Image++;
 		}
 	}
 	}
