@@ -51,25 +51,19 @@ public class Numbers extends GameObject
 		t7 = tLoader.loadImage("numbers/7", t7);
 		t8 = tLoader.loadImage("numbers/8", t8);
 		t9 = tLoader.loadImage("numbers/9", t9);
-		
-		t0.getTextureID();
-		//School interupts stuff gtg
-		//Look for fix for Image Problem.
-		
 	}
 	
 	public void debug()
 	{
-		if(Board == 0)
-			System.err.println("Board 0: " + Image );
+	//	if(Board == 0)
+		//	System.err.println("Board 0: " + Image );
 		
-		if(Board == 1)
-			System.err.println("Board 1: " + Image );
+	//	if(Board == 1)
+		//	System.err.println("Board 1: " + Image );
 	}
-	
-	
-	public void identifyImage()
-	{
+		
+	public void draw()
+	{	
 		switch(Image)
 		{
 			case 0: t0.bind();
@@ -94,11 +88,9 @@ public class Numbers extends GameObject
 				break;
 		}
 		
-	}
-	
-	
-	public void draw()
-	{	
+		
+		glLoadIdentity();
+		
 		glEnable(GL_TEXTURE_2D);
 		
 		glBegin(GL_QUADS);
@@ -114,6 +106,8 @@ public class Numbers extends GameObject
 		
 		glDisable(GL_TEXTURE_2D);
 		
+		glLoadIdentity();
+		
 	}
 	
 	public void update()
@@ -124,7 +118,6 @@ public class Numbers extends GameObject
 	public void changeImage(int image)
 	{
 		Image = image;
-		identifyImage();
 	}
 	
 	

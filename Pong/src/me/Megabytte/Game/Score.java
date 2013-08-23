@@ -8,10 +8,8 @@ public class Score extends GameObject
 	public Score() 
 	{	
 		numbers = new Numbers(0, 20, 64, 64, 0);
-		numbers.identifyImage();
 		
 		numbers2 = new Numbers(576, 20, 64, 64, 1);
-		numbers2.identifyImage();
 	}
 	
 	public void draw()
